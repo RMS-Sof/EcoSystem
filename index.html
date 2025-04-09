@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support System - By Prof. Rahul M. Samant</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --text: #ecf0f1;
+            --dark-text: #333;
+            --light-bg: #f8f9fa;
+            
+            /* Card Colors */
+            --games-color: #e74c3c;
+            --puzzles-color: #9b59b6;
+            --utilities-color: #27ae60;
+            --quotes-color: #f39c12;
+            
+            /* Card gradient end colors */
+            --games-gradient: #ff7675;
+            --puzzles-gradient: #a29bfe;
+            --utilities-gradient: #55efc4;
+            --quotes-gradient: #ffeaa7;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text);
+            text-align: center;
+            padding: 3rem 0;
+            position: relative;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--games-color), 
+                var(--puzzles-color), 
+                var(--utilities-color), 
+                var(--quotes-color));
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .author {
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-top: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .magazine-layout {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .magazine-card {
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: 450px;
+            border-radius: 12px;
+        }
+        
+        .magazine-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .games-card {
+            background: linear-gradient(135deg, var(--games-color), var(--games-gradient));
+        }
+        
+        .puzzles-card {
+            background: linear-gradient(135deg, var(--puzzles-color), var(--puzzles-gradient));
+        }
+        
+        .utilities-card {
+            background: linear-gradient(135deg, var(--utilities-color), var(--utilities-gradient));
+        }
+        
+        .quotes-card {
+            background: linear-gradient(135deg, var(--quotes-color), var(--quotes-gradient));
+        }
+        
+        .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-icon {
+            font-size: 5rem;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+        
+        .card-tag {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 8px 16px;
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .games-tag {
+            color: var(--games-color);
+        }
+        
+        .puzzles-tag {
+            color: var(--puzzles-color);
+        }
+        
+        .utilities-tag {
+            color: var(--utilities-color);
+        }
+        
+        .quotes-tag {
+            color: var(--quotes-color);
+        }
+        
+        .card-content {
+            padding: 1.8rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: white;
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            margin: 0 0 1rem 0;
+            font-weight: 700;
+            line-height: 1.2;
+            padding-bottom: 0.8rem;
+        }
+        
+        .games-title {
+            border-bottom: 3px solid var(--games-color);
+            color: var(--games-color);
+        }
+        
+        .puzzles-title {
+            border-bottom: 3px solid var(--puzzles-color);
+            color: var(--puzzles-color);
+        }
+        
+        .utilities-title {
+            border-bottom: 3px solid var(--utilities-color);
+            color: var(--utilities-color);
+        }
+        
+        .quotes-title {
+            border-bottom: 3px solid var(--quotes-color);
+            color: var(--quotes-color);
+        }
+        
+        .card-excerpt {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+        
+        .read-more {
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            margin-top: auto;
+            padding: 8px 16px;
+            border-radius: 30px;
+        }
+        
+        .games-button {
+            color: white;
+            background-color: var(--games-color);
+        }
+        
+        .puzzles-button {
+            color: white;
+            background-color: var(--puzzles-color);
+        }
+        
+        .utilities-button {
+            color: white;
+            background-color: var(--utilities-color);
+        }
+        
+        .quotes-button {
+            color: white;
+            background-color: var(--quotes-color);
+        }
+        
+        .read-more::after {
+            content: '→';
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .read-more:hover::after {
+            transform: translateX(5px);
+        }
+        
+        .issue-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.9rem;
+            color: #777;
+            font-style: italic;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            background-color: var(--primary);
+            color: var(--text);
+            font-size: 1rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--games-color), 
+                var(--puzzles-color), 
+                var(--utilities-color), 
+                var(--quotes-color));
+        }
+        
+        @media (max-width: 900px) {
+            .magazine-layout {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Support Eco-System for Students</h1>
+        <div class="author">By Prof. Rahul M. Samant</div>
+    </header>
+    
+    <div class="container">
+        <div class="magazine-layout">
+            <div class="magazine-card games-card">
+                <div class="card-image">
+                    <div class="card-tag games-tag">Featured</div>
+                    <div class="card-icon">🎮</div>
+                </div>
+                <div class="card-content">
+                    <div class="issue-number">Vol. 1</div>
+                    <h2 class="card-title games-title">Games</h2>
+                    <p class="card-excerpt">Explore our curated collection of interactive games designed to challenge your mind and provide hours of entertainment. From strategy to puzzles, we have something for everyone.</p>
+                    <a href="https://rms-sof.github.io/GameArcade/" class="read-more games-button">Explore Games</a>
+                </div>
+            </div>
+            
+            <div class="magazine-card puzzles-card">
+                <div class="card-image">
+                    <div class="card-tag puzzles-tag">New</div>
+                    <div class="card-icon">🧩</div>
+                </div>
+                <div class="card-content">
+                    <div class="issue-number">Vol. 2</div>
+                    <h2 class="card-title puzzles-title">Puzzles</h2>
+                    <p class="card-excerpt">Sharpen your cognitive abilities with our collection of brain teasers and puzzles. Challenge yourself with varying difficulties that will test your problem-solving skills.</p>
+                    <a href="https://rms-sof.github.io/PuzzleParadise/" class="read-more puzzles-button">Discover Puzzles</a>
+                </div>
+            </div>
+            
+            <div class="magazine-card utilities-card">
+                <div class="card-image">
+                    <div class="card-tag utilities-tag">Essential</div>
+                    <div class="card-icon">🛠️</div>
+                </div>
+                <div class="card-content">
+                    <div class="issue-number">Vol. 3</div>
+                    <h2 class="card-title utilities-title">Utilities</h2>
+                    <p class="card-excerpt">Access our suite of practical tools and resources designed to assist with everyday tasks and challenges. Boost your productivity with these carefully selected utilities.</p>
+                    <a href="https://rms-sof.github.io/Edu-Utilities/" class="read-more utilities-button">Access Utilities</a>
+                </div>
+            </div>
+            
+            <div class="magazine-card quotes-card">
+                <div class="card-image">
+                    <div class="card-tag quotes-tag">Inspiration</div>
+                    <div class="card-icon">💬</div>
+                </div>
+                <div class="card-content">
+                    <div class="issue-number">Vol. 4</div>
+                    <h2 class="card-title quotes-title">Quotable Quotes</h2>
+                    <p class="card-excerpt">Find motivation in our collection of thought-provoking quotes from renowned thinkers, leaders, and visionaries. Wisdom that inspires action and contemplation.</p>
+                    <a href="https://rms-sof.github.io/QuotableQuotes/" class="read-more quotes-button">Read Quotes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Prof. Rahul M. Samant | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Animate card icons on hover
+        document.querySelectorAll('.magazine-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.card-icon');
+                icon.style.animation = 'pulse 1s infinite';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.card-icon');
+                icon.style.animation = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
